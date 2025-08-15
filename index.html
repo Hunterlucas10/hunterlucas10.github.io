@@ -1,7 +1,233 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CS-499 ePortfolio</title>
+  <meta name="description" content="Professional ePortfolio showcasing capstone artifacts, enhancements, and self-assessment." />
+  <style>
+    :root {
+      --bg: #0f172a;          /* slate-900 */
+      --panel: #111827;       /* gray-900 */
+      --muted: #94a3b8;       /* slate-400 */
+      --text: #e5e7eb;        /* gray-200 */
+      --brand: #22d3ee;       /* cyan-400 */
+      --brand-2: #60a5fa;     /* blue-400 */
+      --accent: #34d399;      /* emerald-400 */
+      --danger: #fb7185;      /* rose-400 */
+      --card: #0b1220;        /* dark card */
+      --radius: 16px;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: radial-gradient(1200px 800px at 10% -10%, rgba(34,211,238,0.10), transparent),
+                  radial-gradient(1000px 600px at 110% 10%, rgba(96,165,250,0.08), transparent),
+                  var(--bg);
+      color: var(--text);
+    }
+
+    .container { width: min(1100px, 92vw); margin: 0 auto; }
+
+    /* Header / Nav */
+    header { position: sticky; top: 0; z-index: 50; backdrop-filter: blur(12px); background: rgba(15, 23, 42, .6); border-bottom: 1px solid rgba(148,163,184,.12); }
+    .nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: .2px; }
+    .logo {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      box-shadow: 0 10px 20px rgba(34,211,238,.35);
+    }
+    nav a { color: var(--text); text-decoration: none; opacity: .85; margin-left: 18px; font-weight: 500; }
+    nav a:hover { opacity: 1; }
+
+    /* Hero */
+    .hero { padding: 56px 0 24px; }
+    .hero h1 { font-size: clamp(28px, 4vw, 44px); margin: 0 0 12px; }
+    .hero p { color: var(--muted); max-width: 70ch; }
+    .pill {
+      display: inline-flex; align-items: center; gap: 8px; background: rgba(34,211,238,.12);
+      color: #cffafe; border: 1px solid rgba(34,211,238,.35); padding: 6px 10px; border-radius: 999px; font-size: 13px;
+    }
+
+    /* Sections */
+    section { padding: 32px 0; }
+    .panel { background: rgba(17,24,39,.6); border: 1px solid rgba(148,163,184,.1); border-radius: var(--radius); box-shadow: var(--shadow); }
+    .section-title { display:flex; align-items:center; justify-content:space-between; margin-bottom: 16px; }
+    .section-title h2 { margin: 0; font-size: clamp(20px, 2.6vw, 28px); }
+    .muted { color: var(--muted); }
+
+    /* Grid Cards */
+    .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+    .col-12 { grid-column: span 12; }
+    .col-6 { grid-column: span 6; }
+    .col-4 { grid-column: span 4; }
+    @media (max-width: 900px) { .col-6, .col-4 { grid-column: span 12; } }
+
+    .card { background: var(--card); border: 1px solid rgba(148,163,184,.12); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); }
+    .card h3 { margin: 0 0 8px; }
+    .tag { display:inline-block; padding: 4px 8px; border: 1px solid rgba(148,163,184,.25); border-radius: 999px; font-size: 12px; color: var(--muted); }
+    .actions { display:flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+    .btn {
+      display:inline-flex; align-items:center; justify-content:center; gap:8px; padding: 10px 14px; border-radius: 12px; text-decoration:none; color: var(--text);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border: 1px solid rgba(148,163,184,.25);
+    }
+    .btn:hover { border-color: rgba(255,255,255,.45); }
+    .btn.primary { background: linear-gradient(135deg, var(--brand), var(--brand-2)); color:#001019; font-weight:700; border: none; }
+
+    /* Video */
+    .video-wrap { overflow: hidden; border-radius: var(--radius); border: 1px solid rgba(148,163,184,.18); box-shadow: var(--shadow); }
+    video { width: 100%; height: auto; display:block; background: #000; }
+
+    /* Footer */
+    footer { padding: 40px 0 70px; color: var(--muted); text-align:center; }
+    .small { font-size: 12px; }
+
+    /* Utilities */
+    .spacer-8 { height: 8px; }
+    .spacer-16 { height: 16px; }
+    .spacer-24 { height: 24px; }
+    .spacer-32 { height: 32px; }
+    .pill.outline { background: transparent; border-color: rgba(96,165,250,.45); color: #dbeafe; }
+  </style>
+</head>
 <body>
-<h1>Hunter Lucas</h1>
-<p>I'm hosted with GitHub Pages.</p>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <span>CS‑499 ePortfolio</span>
+      </div>
+      <nav aria-label="Primary">
+        <a href="#overview">Overview</a>
+        <a href="#self-assessment">Self‑Assessment</a>
+        <a href="#artifacts">Artifacts</a>
+        <a href="#code-review">Code Review</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Hero / Overview -->
+    <section id="overview" class="hero">
+      <span class="pill">Capstone • CS‑499</span>
+      <h1>Professional ePortfolio</h1>
+      <p class="muted">This site showcases original and enhanced artifacts from my Computer Science program, including narratives that map each enhancement to CS‑499 course outcomes in <em>Software Design & Engineering</em>, <em>Algorithms & Data Structures</em>, and <em>Databases</em>. It begins with a professional self‑assessment, followed by artifacts and an informal code review video.</p>
+    </section>
+
+    <!-- Self‑Assessment -->
+    <section id="self-assessment">
+      <div class="section-title">
+        <h2>Professional Self‑Assessment</h2>
+        <span class="tag">Intro • Start here</span>
+      </div>
+      <div class="panel" style="padding:18px 18px 2px;">
+        <p class="muted">Summarize how the program and capstone shaped your strengths, values, and goals. Touch on collaboration, stakeholder communication, data structures & algorithms, software engineering, databases, and security. Conclude with how the artifacts fit together and support your career direction.</p>
+        <div class="spacer-16"></div>
+        <div class="actions"> 
+        </div>
+        <div class="spacer-8"></div>
+      </div>
+    </section>
+
+    <!-- Artifacts Grid -->
+    <section id="artifacts">
+      <div class="section-title">
+        <h2>Artifacts & Enhancements</h2>
+        <span class="pill outline">Each card links to original / enhanced work & narrative</span>
+      </div>
+
+      <div class="grid">
+        <!-- Artifact 1 -->
+        <article class="col-4 card">
+          <h3>Artifact 1 — Software Design & Engineering</h3>
+          <p class="muted">Refactor, architectural improvements, testing, UI/UX polish, or language/OS port.</p>
+          <div class="actions">
+            <a class="btn" href="artifacts/artifact1/original/" target="_blank" rel="noopener">Original</a>
+            <a class="btn primary" href="artifacts/artifact1/enhanced/" target="_blank" rel="noopener">Enhanced</a>
+            <a class="btn" href="artifacts/artifact1/narrative.md" target="_blank" rel="noopener">Narrative</a>
+          </div>
+        </article>
+
+        <!-- Artifact 2 -->
+        <article class="col-4 card">
+          <h3>Artifact 2 — Algorithms & Data Structures</h3>
+          <p class="muted">Efficiency improvements, new data structures, algorithmic trade‑offs, and analyses.</p>
+          <div class="actions">
+            <a class="btn" href="artifacts/artifact2/original/" target="_blank" rel="noopener">Original</a>
+            <a class="btn primary" href="artifacts/artifact2/enhanced/" target="_blank" rel="noopener">Enhanced</a>
+            <a class="btn" href="artifacts/artifact2/narrative.md" target="_blank" rel="noopener">Narrative</a>
+          </div>
+        </article>
+
+        <!-- Artifact 3 -->
+        <article class="col-4 card">
+          <h3>Artifact 3 — Databases</h3>
+          <p class="muted">Advanced SQL/NoSQL, aggregation, indexing, migrations, security, and RBAC.</p>
+          <div class="actions">
+            <a class="btn" href="artifacts/artifact3/original/" target="_blank" rel="noopener">Original</a>
+            <a class="btn primary" href="artifacts/artifact3/enhanced/" target="_blank" rel="noopener">Enhanced</a>
+            <a class="btn" href="artifacts/artifact3/narrative.md" target="_blank" rel="noopener">Narrative</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="spacer-24"></div>
+
+      <!-- Outcome Callouts -->
+      <div class="panel" style="padding:16px;">
+        <strong>Course Outcomes Demonstrated:</strong>
+        <ul class="muted">
+          <li>Collaborative environments for decision‑making across diverse audiences.</li>
+          <li>Professional‑quality oral, written, and visual communication.</li>
+          <li>Algorithmic design and evaluation with clear trade‑offs.</li>
+          <li>Use of innovative tools and techniques to deliver value.</li>
+          <li>Security mindset: threat modeling, mitigation, privacy, and data protection.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Code Review Video -->
+    <section id="code-review">
+      <div class="section-title">
+        <h2>Informal Code Review</h2>
+        <span class="tag">Video walkthrough</span>
+      </div>
+
+      <div class="video-wrap">
+        <video controls preload="metadata" poster="assets/video-poster.png">
+          <source src="codereview/code_review.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <p class="muted" style="margin-top:10px;">This review covers existing functionality, code analysis (structure, efficiency, security, testing), and planned enhancements mapped to course outcomes.</p>
+    </section>
+
+    <!-- Helpful Links -->
+    <section>
+      <div class="panel" style="padding:16px; display:flex; gap:16px; flex-wrap:wrap; align-items:center; justify-content:space-between;">
+        <div class="muted">Prefer a file‑tree view for any folder?</div>
+        <div class="actions">
+          <a class="btn" href="artifacts/" target="_blank" rel="noopener">Open <strong>/artifacts</strong> Folder</a>
+          <a class="btn" href="codereview/" target="_blank" rel="noopener">Open <strong>/codereview</strong> Folder</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container small">© <span id="y"></span> • CS‑499 Capstone ePortfolio
+      <div class="small">Built with accessible, static HTML/CSS. No downloads required to view artifacts.</div>
+    </div>
+  </footer>
+
+  <script>
+    // Set year
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
