@@ -7,16 +7,44 @@
 </head>
 <body>
   <h1>Artifact 1 — Original Version</h1>
-  <p>This page contains screenshots of the artifact before enhancements.</p>
+  <p>This page contains the original writing of the artifact before enhancements.</p>
 
-  <h2>Screenshot 1</h2>
-  <img src="../../assets/artifact1-before-1.png" alt="Original UI Screenshot 1" width="800">
-
-  <h2>Screenshot 2</h2>
-  <img src="../../assets/artifact1-before-2.png" alt="Original UI Screenshot 2" width="800">
-
-  <h2>Download Code</h2>
-  <a href="artifact1-original.zip" download>Download Original Source Code</a>
+  <p>CS 340 README Hunter Lucas
+About the Project/Project Title
+My project here is a Python CRUD module that delivers an interactive web dashboard for Grazioso Salvare. The dashboard integrates with a live MongoDB database to retrieve animal shelter data from the Austin Animal Center. Using filtering options and visual widgets, the dashboard enables users to identify dogs best suited for Water Rescue, Mountain or Wilderness Rescue, or Disaster/Individual Tracking.
+Motivation
+The goal of this project is to learn and to demonstrate my understanding of MongoDB CRUD operations using Python and an MVC style application. Using the data from the Austin Animal Center, it allows me to create an application that would be used in a practical sense in the real world. I intend to keep this as a scalable project to work on and play with in the future to expand my skills.
+Tools Used
+I used Python because it's easy to understand and great for building projects like this. MongoDB was used to store the animal records because it handles different kinds of data well and connects easily to Python with PyMongo. For the dashboard, I used Dash. It lets you build interactive web apps using just Python, which made it simple to create filters, a table, and a map. The map helped show where each animal was located based on the data.
+Steps Taken
+To complete the project, I started by setting up a MongoDB database and importing the animal outcome data. Then I built a Python CRUD module to interact with the database. After that, I used Dash to create a web app layout that included a table, filters, a chart, and a map. I added callbacks to make the components interactive and connected them to the database so they would update based on user input. I also added a logo to finish off the dashboard.
+Getting Started
+To get a local copy up and running, follow these simple example steps.
+1. Clone or download the project files.
+2. Request user access from admin (hunter.lucas@snhu.edu).
+3. Open the project in Jupyter Notebook.
+4. Import the CSV into MongoDB and run the python scripts.
+Installation
+● Python - For creating the create and read module.
+● Jupyter Notebook - For testing and running the scripts.
+● MongoDB - Database.
+Usage
+Note: This template has been adapted from the following sample templates: Make a README, Best README
+Template, and A Beginners Guide to Writing a Kickass README.
+Note: This template has been adapted from the following sample templates: Make a README, Best README
+Template, and A Beginners Guide to Writing a Kickass README.
+Tests
+Tests were run through a Jupyter Notebook. The steps included:
+1. Connecting to MongoDB using credentials
+2. Running create() to insert a test record
+3. Using read() to verify the document was inserted
+4. Using update() to change a field in the document
+5. Using delete() to remove the document and confirming deletion
+Challenges
+One of the main challenges was getting the image to show up on the dashboard. At first, it wouldn’t load even though the file was in the same folder. I had to figure out the right way to encode the image so Dash could display it.Another issue was connecting to MongoDB. If any part of the login info or database name was wrong, the whole thing would fail. Once I got that working, I also had to make sure the data showed up right in the table and map. If a column was missing or had the wrong type, it would crash the app.
+Contact
+Your name: Hunter Lucas Note: This template has been adapted from the following sample templates: Make a README, Best README
+Template, and A Beginners Guide to Writing a Kickass README.</p>
 
   <p><a href="../../index.html">← Back to ePortfolio</a></p>
 </body>
