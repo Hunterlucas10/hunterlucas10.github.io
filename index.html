@@ -7,16 +7,17 @@
   <meta name="description" content="Professional ePortfolio showcasing capstone artifacts, enhancements, and self-assessment." />
   <style>
     :root {
-      --bg: #0f172a;          /* slate-900 */
-      --panel: #111827;       /* gray-900 */
-      --muted: #94a3b8;       /* slate-400 */
-      --text: #e5e7eb;        /* gray-200 */
-      --brand: #22d3ee;       /* cyan-400 */
-      --brand-2: #60a5fa;     /* blue-400 */
-      --accent: #34d399;      /* emerald-400 */
-      --danger: #fb7185;      /* rose-400 */
-      --card: #0b1220;        /* dark card */
-      --radius: 16px;
+      /* Bento theme: royal blue + gold */
+      --bg: #0b1220;            /* deep navy */
+      --panel: #0e1630;         /* card base */
+      --ink: #eef2ff;           /* light text */
+      --muted: #98a3c7;         /* muted text */
+      --blue: #3b82f6;          /* primary blue */
+      --blue-600: #1d4ed8;      /* darker blue */
+      --gold: #fbbf24;          /* accent gold */
+      --gold-700: #b45309;      /* darker gold */
+      --stroke: rgba(255,255,255,.09);
+      --radius: 18px;
       --shadow: 0 10px 30px rgba(0,0,0,.35);
     }
 
@@ -24,75 +25,53 @@
     html, body { height: 100%; }
     body {
       margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-      background: radial-gradient(1200px 800px at 10% -10%, rgba(34,211,238,0.10), transparent),
-                  radial-gradient(1000px 600px at 110% 10%, rgba(96,165,250,0.08), transparent),
-                  var(--bg);
-      color: var(--text);
+      color: var(--ink);
+      background:
+        radial-gradient(900px 600px at 0% -10%, rgba(59,130,246,.18), transparent),
+        radial-gradient(800px 500px at 110% 10%, rgba(251,191,36,.15), transparent),
+        var(--bg);
     }
 
-    .container { width: min(1100px, 92vw); margin: 0 auto; }
+    .container { width: min(1150px, 92vw); margin: 0 auto; }
 
-    /* Header / Nav */
-    header { position: sticky; top: 0; z-index: 50; backdrop-filter: blur(12px); background: rgba(15, 23, 42, .6); border-bottom: 1px solid rgba(148,163,184,.12); }
-    .nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; }
-    .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: .2px; }
-    .logo {
-      width: 36px; height: 36px; border-radius: 10px;
-      background: linear-gradient(135deg, var(--brand), var(--brand-2));
-      box-shadow: 0 10px 20px rgba(34,211,238,.35);
-    }
-    nav a { color: var(--text); text-decoration: none; opacity: .85; margin-left: 18px; font-weight: 500; }
-    nav a:hover { opacity: 1; }
+    /* Header */
+    header { position: sticky; top: 0; z-index: 50; backdrop-filter: blur(10px); background: rgba(11,18,32,.55); border-bottom: 1px solid var(--stroke); }
+    .nav { display:flex; align-items:center; justify-content:space-between; padding: 14px 0; }
+    .brand { display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.2px; }
+    .logo { width:36px; height:36px; border-radius:10px; background: conic-gradient(from 160deg, var(--gold), var(--blue)); box-shadow: 0 10px 22px rgba(59,130,246,.35); }
+    nav a { color: var(--ink); text-decoration:none; opacity:.9; margin-left:18px; font-weight:600; }
+    nav a:hover { opacity:1; }
 
     /* Hero */
-    .hero { padding: 56px 0 24px; }
-    .hero h1 { font-size: clamp(28px, 4vw, 44px); margin: 0 0 12px; }
-    .hero p { color: var(--muted); max-width: 70ch; }
-    .pill {
-      display: inline-flex; align-items: center; gap: 8px; background: rgba(34,211,238,.12);
-      color: #cffafe; border: 1px solid rgba(34,211,238,.35); padding: 6px 10px; border-radius: 999px; font-size: 13px;
-    }
+    .hero { padding: 56px 0 12px; }
+    .hero h1 { font-size: clamp(28px, 4vw, 46px); margin: 0 0 10px; }
+    .hero p { color: var(--muted); max-width: 78ch; }
+    .pill { display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; font-size:13px; border:1px solid rgba(59,130,246,.5); background: rgba(59,130,246,.12); color:#dbeafe; }
 
-    /* Sections */
-    section { padding: 32px 0; }
-    .panel { background: rgba(17,24,39,.6); border: 1px solid rgba(148,163,184,.1); border-radius: var(--radius); box-shadow: var(--shadow); }
-    .section-title { display:flex; align-items:center; justify-content:space-between; margin-bottom: 16px; }
-    .section-title h2 { margin: 0; font-size: clamp(20px, 2.6vw, 28px); }
+    /* Bento Grid */
+    section { padding: 28px 0; }
+    .bento { display:grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+    .span-12 { grid-column: span 12; }
+    .span-8 { grid-column: span 8; }
+    .span-6 { grid-column: span 6; }
+    .span-4 { grid-column: span 4; }
+    @media (max-width: 950px) { .span-8, .span-6, .span-4 { grid-column: span 12; } }
+
+    .tile { background: var(--panel); border: 1px solid var(--stroke); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); position: relative; overflow:hidden; }
+    .tile::after { content:""; position:absolute; inset:-1px; pointer-events:none; background: linear-gradient(180deg, rgba(251,191,36,.08), transparent); opacity:.6; }
+    .title { margin:0 0 8px; font-size: clamp(18px, 2.4vw, 26px); }
     .muted { color: var(--muted); }
 
-    /* Grid Cards */
-    .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
-    .col-12 { grid-column: span 12; }
-    .col-6 { grid-column: span 6; }
-    .col-4 { grid-column: span 4; }
-    @media (max-width: 900px) { .col-6, .col-4 { grid-column: span 12; } }
+    .btn-row { display:flex; flex-wrap:wrap; gap:10px; margin-top: 12px; }
+    .btn { display:inline-flex; align-items:center; gap:8px; padding: 10px 14px; border-radius: 12px; text-decoration:none; color: var(--ink); border:1px solid var(--stroke); background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)); }
+    .btn:hover { border-color: rgba(255,255,255,.35); }
+    .btn.primary { background: linear-gradient(135deg, var(--gold), var(--blue)); color:#0b1220; font-weight:800; border:none; }
 
-    .card { background: var(--card); border: 1px solid rgba(148,163,184,.12); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); }
-    .card h3 { margin: 0 0 8px; }
-    .tag { display:inline-block; padding: 4px 8px; border: 1px solid rgba(148,163,184,.25); border-radius: 999px; font-size: 12px; color: var(--muted); }
-    .actions { display:flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
-    .btn {
-      display:inline-flex; align-items:center; justify-content:center; gap:8px; padding: 10px 14px; border-radius: 12px; text-decoration:none; color: var(--text);
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-      border: 1px solid rgba(148,163,184,.25);
-    }
-    .btn:hover { border-color: rgba(255,255,255,.45); }
-    .btn.primary { background: linear-gradient(135deg, var(--brand), var(--brand-2)); color:#001019; font-weight:700; border: none; }
+    .video { overflow:hidden; border-radius: var(--radius); border: 1px solid var(--stroke); box-shadow: var(--shadow); }
+    video { width:100%; height:auto; display:block; background:#000; }
 
-    /* Video */
-    .video-wrap { overflow: hidden; border-radius: var(--radius); border: 1px solid rgba(148,163,184,.18); box-shadow: var(--shadow); }
-    video { width: 100%; height: auto; display:block; background: #000; }
-
-    /* Footer */
     footer { padding: 40px 0 70px; color: var(--muted); text-align:center; }
     .small { font-size: 12px; }
-
-    /* Utilities */
-    .spacer-8 { height: 8px; }
-    .spacer-16 { height: 16px; }
-    .spacer-24 { height: 24px; }
-    .spacer-32 { height: 32px; }
-    .pill.outline { background: transparent; border-color: rgba(96,165,250,.45); color: #dbeafe; }
   </style>
 </head>
 <body>
@@ -112,121 +91,103 @@
   </header>
 
   <main class="container">
-    <!-- Hero / Overview -->
     <section id="overview" class="hero">
       <span class="pill">Capstone • CS‑499</span>
       <h1>Professional ePortfolio</h1>
       <p class="muted">This site showcases original and enhanced artifacts from my Computer Science program, including narratives that map each enhancement to CS‑499 course outcomes in <em>Software Design & Engineering</em>, <em>Algorithms & Data Structures</em>, and <em>Databases</em>. It begins with a professional self‑assessment, followed by artifacts and an informal code review video.</p>
     </section>
 
-    <!-- Self‑Assessment -->
+    <!-- Bento: Self‑Assessment wide tile -->
     <section id="self-assessment">
-      <div class="section-title">
-        <h2>Professional Self‑Assessment</h2>
-        <span class="tag">Intro • Start here</span>
-      </div>
-      <div class="panel" style="padding:18px 18px 2px;">
-        <p class="muted">Summarize how the program and capstone shaped your strengths, values, and goals. Touch on collaboration, stakeholder communication, data structures & algorithms, software engineering, databases, and security. Conclude with how the artifacts fit together and support your career direction.</p>
-        <div class="spacer-16"></div>
-        <div class="actions"> 
+      <div class="bento">
+        <div class="tile span-12">
+          <h2 class="title">Professional Self‑Assessment</h2>
+          <p class="muted">Summarize how the program and capstone shaped your strengths, values, and goals. Touch on collaboration, stakeholder communication, data structures & algorithms, software engineering, databases, and security. Conclude with how the artifacts fit together and support your career direction.</p>
         </div>
-        <div class="spacer-8"></div>
       </div>
     </section>
 
-    <!-- Artifacts Grid -->
+    <!-- Bento: three artifact tiles -->
     <section id="artifacts">
-      <div class="section-title">
-        <h2>Artifacts & Enhancements</h2>
-        <span class="pill outline">Each card links to original / enhanced work & narrative</span>
-      </div>
-
-      <div class="grid">
-        <!-- Artifact 1 -->
-        <article class="col-4 card">
-          <h3>Artifact 1 — Software Design & Engineering</h3>
-          <p class="muted">Refactor, architectural improvements, testing, UI/UX polish, or language/OS port.</p>
-          <div class="actions">
-            <a class="btn" href="artifacts/artifact1/original/" target="_blank" rel="noopener">Original</a>
-            <a class="btn primary" href="artifacts/artifact1/enhanced/" target="_blank" rel="noopener">Enhanced</a>
+      <div class="bento">
+        <article class="tile span-4">
+          <h3 class="title">Artifact 1 — Software Design & Engineering</h3>
+          <p class="muted">Refactor, architecture, testing, and UI/UX polish.</p>
+          <div class="btn-row">
+            <a class="btn" href="artifacts/artifact1/artifact1original.html" target="_blank" rel="noopener">Original</a>
+            <a class="btn primary" href="artifacts/artifact1/artifact1enhanced.html" target="_blank" rel="noopener">Enhanced</a>
             <a class="btn" href="artifacts/artifact1/narrative.html" target="_blank" rel="noopener">Narrative</a>
           </div>
         </article>
 
-        <!-- Artifact 2 -->
-        <article class="col-4 card">
-          <h3>Artifact 2 — Algorithms & Data Structures</h3>
-          <p class="muted">Efficiency improvements, new data structures, algorithmic trade‑offs, and analyses.</p>
-          <div class="actions">
-            <a class="btn" href="artifacts/artifact2/original/" target="_blank" rel="noopener">Original</a>
-            <a class="btn primary" href="artifacts/artifact2/enhanced/" target="_blank" rel="noopener">Enhanced</a>
+        <article class="tile span-4">
+          <h3 class="title">Artifact 2 — Algorithms & Data Structures</h3>
+          <p class="muted">Efficiency improvements and data-structure upgrades.</p>
+          <div class="btn-row">
+            <a class="btn" href="artifacts/artifact2/artifact2original.html" target="_blank" rel="noopener">Original</a>
+            <a class="btn primary" href="artifacts/artifact2/artifact2enhanced.html" target="_blank" rel="noopener">Enhanced</a>
             <a class="btn" href="artifacts/artifact2/narrative.html" target="_blank" rel="noopener">Narrative</a>
           </div>
         </article>
 
-        <!-- Artifact 3 -->
-        <article class="col-4 card">
-          <h3>Artifact 3 — Databases</h3>
-          <p class="muted">Advanced SQL/NoSQL, aggregation, indexing, migrations, security, and RBAC.</p>
-          <div class="actions">
-            <a class="btn" href="artifacts/artifact3/original/" target="_blank" rel="noopener">Original</a>
-            <a class="btn primary" href="artifacts/artifact3/enhanced/" target="_blank" rel="noopener">Enhanced</a>
+        <article class="tile span-4">
+          <h3 class="title">Artifact 3 — Databases</h3>
+          <p class="muted">Advanced SQL/NoSQL, aggregation, indexing, RBAC, security.</p>
+          <div class="btn-row">
+            <a class="btn" href="artifacts/artifact3/artifact3original.html" target="_blank" rel="noopener">Original</a>
+            <a class="btn primary" href="artifacts/artifact3/artifact3enhance.html" target="_blank" rel="noopener">Enhanced</a>
             <a class="btn" href="artifacts/artifact3/narrative.html" target="_blank" rel="noopener">Narrative</a>
           </div>
         </article>
-      </div>
 
-      <div class="spacer-24"></div>
-
-      <!-- Outcome Callouts -->
-      <div class="panel" style="padding:16px;">
-        <strong>Course Outcomes Demonstrated:</strong>
-        <ul class="muted">
-          <li>Collaborative environments for decision‑making across diverse audiences.</li>
-          <li>Professional‑quality oral, written, and visual communication.</li>
-          <li>Algorithmic design and evaluation with clear trade‑offs.</li>
-          <li>Use of innovative tools and techniques to deliver value.</li>
-          <li>Security mindset: threat modeling, mitigation, privacy, and data protection.</li>
-        </ul>
+        <!-- Outcomes tile spanning wider for visual balance -->
+        <div class="tile span-12">
+          <h3 class="title">Course Outcomes Demonstrated</h3>
+          <ul class="muted">
+            <li>Building collaborative environments for decision‑making across diverse audiences.</li>
+            <li>Professional‑quality oral, written, and visual communication.</li>
+            <li>Algorithmic design and evaluation with trade‑off management.</li>
+            <li>Innovative tools and techniques to deliver value and accomplish goals.</li>
+            <li>Security mindset: threat modeling, mitigation, privacy, and data protection.</li>
+          </ul>
+        </div>
       </div>
     </section>
 
-    <!-- Code Review Video -->
+    <!-- Bento: code review video wide -->
     <section id="code-review">
-      <div class="section-title">
-        <h2>Informal Code Review</h2>
-        <span class="tag">Video walkthrough</span>
+      <div class="bento">
+        <div class="tile span-12">
+          <h2 class="title">Informal Code Review</h2>
+          <div class="video">
+            <video controls preload="metadata" poster="assets/video-poster.png">
+              <source src="codereview/code_review.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <p class="muted" style="margin-top:10px;">Walkthrough of existing functionality, code analysis (structure, efficiency, security, testing), and planned enhancements mapped to course outcomes.</p>
+        </div>
       </div>
-
-      <div class="video-wrap">
-        <video controls preload="metadata" poster="assets/video-poster.png">
-          <source src="codereview/code_review.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-      </div>
-      <p class="muted" style="margin-top:10px;">This review covers existing functionality, code analysis (structure, efficiency, security, testing), and planned enhancements mapped to course outcomes.</p>
     </section>
 
-    <!-- Helpful Links -->
     <section>
-      <div class="panel" style="padding:16px; display:flex; gap:16px; flex-wrap:wrap; align-items:center; justify-content:space-between;">
-        <div class="muted">Prefer a file‑tree view for any folder?</div>
-        <div class="actions">
-          <a class="btn" href="artifacts/" target="_blank" rel="noopener">Open <strong>/artifacts</strong> Folder</a>
-          <a class="btn" href="codereview/" target="_blank" rel="noopener">Open <strong>/codereview</strong> Folder</a>
+      <div class="bento">
+        <div class="tile span-12" style="display:flex; gap:16px; align-items:center; justify-content:space-between; flex-wrap:wrap;">
+          <div class="muted">Prefer a folder view?</div>
+          <div class="btn-row">
+            <a class="btn" href="artifacts/" target="_blank" rel="noopener">Open <strong>/artifacts</strong></a>
+            <a class="btn" href="codereview/" target="_blank" rel="noopener">Open <strong>/codereview</strong></a>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
   <footer>
-    <div class="container small">© <span id="y"></span> • CS‑499 Capstone ePortfolio
-      <div class="small">Built with accessible, static HTML/CSS. No downloads required to view artifacts.</div>
-    </div>
+    <div class="container small">© <span id="y"></span> • CS‑499 Capstone ePortfolio — Blue & Gold Bento Theme</div>
   </footer>
 
   <script>
-    // Set year
     document.getElementById('y').textContent = new Date().getFullYear();
   </script>
 </body>
