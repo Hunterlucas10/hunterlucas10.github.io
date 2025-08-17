@@ -2,47 +2,32 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Artifact 3 — Enhanced (Live DB UI via API)</title>
-  <meta name="description" content="Databases enhancement: UI integrated with a live database over REST API (auth, pagination, validation)." />
+  <title>Artifact 3 — Enhanced (UI Source)</title>
+  <meta name="description" content="UI source code used to connect the front end to a live database via API." />
   <style>
-    :root{
-      --bg:#0b1220;--panel:#0e1630;--ink:#eef2ff;--muted:#98a3c7;
-      --blue:#3b82f6;--gold:#fbbf24;--stroke:rgba(255,255,255,.09);
-      --radius:18px;--shadow:0 10px 30px rgba(0,0,0,.35)
-    }
-    *{box-sizing:border-box}html,body{height:100%}
-    body{
-      margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
-      color:var(--ink);
-      background:
-        radial-gradient(900px 600px at 0% -10%, rgba(59,130,246,.18), transparent),
-        radial-gradient(800px 500px at 110% 10%, rgba(251,191,36,.15), transparent),
-        var(--bg);
-    }
-    .container{width:min(1100px,92vw);margin:0 auto;padding:28px 0}
-    a{color:#dbeafe;text-decoration:none}
-    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
-    .brand{display:flex;align-items:center;gap:10px;font-weight:800}
-    .logo{width:32px;height:32px;border-radius:10px;background:conic-gradient(from 160deg, var(--gold), var(--blue))}
-    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;text-decoration:none;
-         color:var(--ink);border:1px solid var(--stroke);
-         background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02))}
-    .btn.primary{background:linear-gradient(135deg,var(--gold),var(--blue));color:#0b1220;font-weight:800;border:none}
-    .btn-row{display:flex;gap:10px;flex-wrap:wrap}
-    .muted{color:var(--muted)}
-    .bento{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
-    .span-12{grid-column:span 12}.span-8{grid-column:span 8}.span-6{grid-column:span 6}
-    @media(max-width:900px){.span-8,.span-6{grid-column:span 12}}
-    .tile{background:var(--panel);border:1px solid var(--stroke);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
-    h1{margin:6px 0 8px;font-size:clamp(22px,3.2vw,34px)}
-    h2{margin:0 0 8px;font-size:clamp(18px,2.6vw,24px)}
-    figure{margin:0}figcaption{margin-top:6px;color:var(--muted);font-size:14px}
-    img{width:100%;height:auto;border-radius:14px;border:1px solid var(--stroke);box-shadow:var(--shadow)}
-    pre{margin:0;background:#0a0f1f;border:1px solid var(--stroke);border-radius:14px;padding:14px;overflow:auto}
-    code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;font-size:14px;line-height:1.5}
-    .pill{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;font-size:12px;
-          border:1px solid rgba(59,130,246,.5);background:rgba(59,130,246,.12);color:#dbeafe}
-    .toolbar{display:flex;gap:8px;align-items:center;justify-content:flex-end;margin-bottom:8px}
+    :root{ --bg:#0b1220; --panel:#0e1630; --ink:#eef2ff; --muted:#98a3c7; --blue:#3b82f6; --gold:#fbbf24; --stroke:rgba(255,255,255,.09); --radius:18px; --shadow:0 10px 30px rgba(0,0,0,.35) }
+    *{box-sizing:border-box} html,body{height:100%}
+    body{ margin:0; font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; color:var(--ink);
+      background: radial-gradient(900px 600px at 0% -10%, rgba(59,130,246,.18), transparent), radial-gradient(800px 500px at 110% 10%, rgba(251,191,36,.15), transparent), var(--bg); }
+    .container{ width:min(1100px,92vw); margin:0 auto; padding:28px 0 }
+    a{ color:#dbeafe; text-decoration:none }
+    header{ display:flex; align-items:center; justify-content:space-between; margin-bottom:16px }
+    .brand{ display:flex; align-items:center; gap:10px; font-weight:800 }
+    .logo{ width:32px; height:32px; border-radius:10px; background:conic-gradient(from 160deg, var(--gold), var(--blue)) }
+    .btn{ display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:12px; text-decoration:none; color:var(--ink); border:1px solid var(--stroke); background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) }
+    .btn.primary{ background:linear-gradient(135deg,var(--gold),var(--blue)); color:#0b1220; font-weight:800; border:none }
+    .btn-row{ display:flex; gap:10px; flex-wrap:wrap }
+    .muted{ color:var(--muted) }
+    .bento{ display:grid; grid-template-columns:repeat(12,1fr); gap:16px }
+    .span-12{ grid-column:span 12 } .span-6{ grid-column:span 6 }
+    @media(max-width:900px){ .span-6{ grid-column:span 12 } }
+    .tile{ background:var(--panel); border:1px solid var(--stroke); border-radius:var(--radius); padding:18px; box-shadow:var(--shadow) }
+    h1{ margin:6px 0 8px; font-size:clamp(22px,3.2vw,34px) }
+    h2{ margin:0 0 8px; font-size:clamp(18px,2.6vw,24px) }
+    .pill{ display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; font-size:12px; border:1px solid rgba(59,130,246,.5); background:rgba(59,130,246,.12); color:#dbeafe }
+    pre{ margin:0; background:#0a0f1f; border:1px solid var(--stroke); border-radius:14px; padding:14px; overflow:auto }
+    code{ font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace; font-size:14px; line-height:1.5; white-space:pre }
+    .toolbar{ display:flex; gap:8px; align-items:center; justify-content:flex-end; margin-bottom:8px }
   </style>
 </head>
 <body>
@@ -60,118 +45,302 @@
     </header>
 
     <span class="pill">Enhancement Three • Databases & API</span>
-    <h1>Live Database UI via REST API — Enhanced Version</h1>
-    <p class="muted">
-      This enhancement connects a front-end UI to a live database through a REST API, featuring authenticated requests,
-      robust error handling, server-side validation, and client-side pagination & filtering. The UI provides real-time
-      data views and safe write operations through well-defined endpoints.
-    </p>
+    <h1>UI Code — Live Database via API</h1>
+    <p class="muted">Exact UI source files used to connect and visualize live data via REST API.</p>
 
     <section class="bento" style="margin-top:16px;">
-      <div class="tile span-6">
-        <h2>Overview of Enhancements</h2>
-        <ul>
-          <li>Integrated UI with <strong>live REST API</strong> (GET, POST, PUT, DELETE) backed by a production database.</li>
-          <li>Implemented <strong>auth headers</strong>, request retry on 401, and centralized error handling.</li>
-          <li>Added <strong>pagination</strong>, <strong>search filters</strong>, and debounced queries for responsive UX.</li>
-          <li>Introduced <strong>form validation</strong> on client and server; surfaced helpful error messages.</li>
-        </ul>
-      </div>
-
-      <div class="tile span-6">
-        <h2>Data & API Design</h2>
-        <ul>
-          <li>Entities: <em>Records</em>, <em>Users</em> (RBAC optional), <em>Audit</em> logs.</li>
-          <li>Key endpoints: <code>GET /api/records</code>, <code>POST /api/records</code>, <code>PUT /api/records/:id</code>, <code>DELETE /api/records/:id</code></li>
-          <li>Status codes: <code>200</code>/<code>201</code>, <code>400</code> validation, <code>401</code>/<code>403</code> auth, <code>404</code>, <code>500</code>.</li>
-        </ul>
-      </div>
-
-      <!-- Screenshots -->
-      <div class="tile span-12">
-        <h2>Enhanced UI Screens</h2>
-        <figure>
-          <img src="../../assets/artifact3-after-1.png" alt="Enhanced UI screenshot 1" />
-          <figcaption>Data grid with pagination, filtering, and action buttons.</figcaption>
-        </figure>
-        <div style="height:12px"></div>
-        <figure>
-          <img src="../../assets/artifact3-after-2.png" alt="Enhanced UI screenshot 2" />
-          <figcaption>Create / Edit modal with validation and API feedback.</figcaption>
-        </figure>
-      </div>
-
-      <!-- API base / docs links (replace # with your URLs) -->
-      <div class="tile span-12">
-        <h2>API Access</h2>
-        <p class="muted">Replace the example URLs with your live API and docs links.</p>
-        <div class="btn-row">
-          <a class="btn primary" href="#" target="_blank" rel="noopener">Open API Base URL</a>
-          <a class="btn" href="#" target="_blank" rel="noopener">OpenAPI / Swagger Docs</a>
-          <a class="btn" href="./artifact3_ui_source.zip" download>Download UI Source (.zip)</a>
-        </div>
-      </div>
-
-      <!-- UI fetch snippet -->
+      <!-- App.tsx -->
       <div class="tile span-12">
         <div class="toolbar">
-          <button class="btn" data-copy="fetch">Copy code</button>
+          <a class="btn" href="./App.tsx" download>Download App.tsx</a>
+          <button class="btn" data-copy="app">Copy code</button>
         </div>
-        <h2>UI → API Fetch Example</h2>
-        <pre id="code-fetch"><code>async function fetchRecords({ page = 1, q = "" } = {}) {
-  const res = await fetch(`${localStorage.getItem("API_BASE_URL")}/api/records?page=${page}&q=${encodeURIComponent(q)}`, {
-    headers: {
-      "Accept": "application/json",
-      "Authorization": `Bearer ${localStorage.getItem("API_TOKEN")}`
-    },
-    credentials: "include",
-  });
+        <h2>App.tsx</h2>
+        <pre id="code-app"><code>import { useEffect, useState } from &quot;react&quot;;
+import &quot;./styles.css&quot;;
 
-  if (res.status === 401) {
-    // Optionally refresh token or redirect to login
-    throw new Error("Unauthorized. Please sign in again.");
-  }
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({ message: res.statusText }));
-    throw new Error(err.message || "Request failed");
-  }
-  const data = await res.json();
-  return data; // { items: [...], page, total }
-}</code></pre>
+type Player = {
+  name: string;
+  driving: number;
+  putting: number;
+  approach: number;
+  strokesGained: number;
+};
+
+export default function App() {
+  const [query, setQuery] = useState(&quot;&quot;);
+  const [activeTab, setActiveTab] = useState&lt;
+    &quot;overview&quot; | &quot;custom&quot; | &quot;favorites&quot;
+  &gt;(&quot;overview&quot;);
+  const [players, setPlayers] = useState&lt;Player[]&gt;([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() =&gt; {
+    const fetchStats = async () =&gt; {
+      try {
+        const response = await fetch(
+          &quot;https://feeds.datagolf.com/historical-raw-data/rounds?tour=pga&amp;event_id=all&amp;year=2024&amp;file_format=json&amp;key=YOUR_API_KEY_HERE&quot;
+        );
+        const data = await response.json();
+
+        const playerMap = new Map&lt;string, { count: number } &amp; Player&gt;();
+
+        data.forEach((round: any) =&gt; {
+          const name = round.player_name;
+          const driving = round.driving_distance || 0;
+          const putting = round.sg_putt || 0;
+          const approach = round.sg_app || 0;
+          const strokesGained = round.total_sg || 0;
+
+          if (!playerMap.has(name)) {
+            playerMap.set(name, {
+              name,
+              driving,
+              putting,
+              approach,
+              strokesGained,
+              count: 1,
+            });
+          } else {
+            const p = playerMap.get(name)!;
+            playerMap.set(name, {
+              name,
+              driving: p.driving + driving,
+              putting: p.putting + putting,
+              approach: p.approach + approach,
+              strokesGained: p.strokesGained + strokesGained,
+              count: p.count + 1,
+            });
+          }
+        });
+
+        const playersArray: Player[] = Array.from(playerMap.values()).map(
+          (p) =&gt; ({
+            name: p.name,
+            driving: +(p.driving / p.count).toFixed(1),
+            putting: +(p.putting / p.count).toFixed(2),
+            approach: +(p.approach / p.count).toFixed(2),
+            strokesGained: +(p.strokesGained / p.count).toFixed(2),
+          })
+        );
+
+        setPlayers(playersArray);
+        setLoading(false);
+      } catch (error) {
+        console.error(&quot;Error fetching data from DataGolf API:&quot;, error);
+        setLoading(false);
+      }
+    };
+
+    fetchStats();
+  }, []);
+
+  const filtered = players.filter((player) =&gt;
+    player.name.toLowerCase().includes(query.toLowerCase())
+  );
+
+  return (
+    &lt;div className=&quot;container&quot;&gt;
+      &lt;h1 className=&quot;title&quot;&gt;PGA Stats Research Center&lt;/h1&gt;
+
+      &lt;div className=&quot;search-bar&quot;&gt;
+        &lt;input
+          className=&quot;search-input&quot;
+          type=&quot;text&quot;
+          placeholder=&quot;Search by player name...&quot;
+          value={query}
+          onChange={(e) =&gt; setQuery(e.target.value)}
+        /&gt;
+        &lt;button className=&quot;search-button&quot;&gt;Search&lt;/button&gt;
+      &lt;/div&gt;
+
+      &lt;div className=&quot;tabs&quot;&gt;
+        {[&quot;overview&quot;, &quot;custom&quot;, &quot;favorites&quot;].map((tab) =&gt; (
+          &lt;button
+            key={tab}
+            onClick={() =&gt; setActiveTab(tab as typeof activeTab)}
+            className={`tab-button ${activeTab === tab ? &quot;active&quot; : &quot;&quot;}`}
+          &gt;
+            {tab.charAt(0).toUpperCase() + tab.slice(1)}
+          &lt;/button&gt;
+        ))}
+      &lt;/div&gt;
+
+      &lt;div className=&quot;tab-content&quot;&gt;
+        {activeTab === &quot;overview&quot; &amp;&amp; (
+          &lt;&gt;
+            {loading ? (
+              &lt;p&gt;Loading player stats from DataGolf...&lt;/p&gt;
+            ) : (
+              &lt;table className=&quot;stats-table&quot;&gt;
+                &lt;thead&gt;
+                  &lt;tr&gt;
+                    &lt;th&gt;Player&lt;/th&gt;
+                    &lt;th&gt;Driving (yds)&lt;/th&gt;
+                    &lt;th&gt;Putting&lt;/th&gt;
+                    &lt;th&gt;Approach&lt;/th&gt;
+                    &lt;th&gt;Strokes Gained&lt;/th&gt;
+                  &lt;/tr&gt;
+                &lt;/thead&gt;
+                &lt;tbody&gt;
+                  {filtered.map((player, idx) =&gt; (
+                    &lt;tr key={idx}&gt;
+                      &lt;td&gt;{player.name}&lt;/td&gt;
+                      &lt;td&gt;{player.driving}&lt;/td&gt;
+                      &lt;td&gt;{player.putting}&lt;/td&gt;
+                      &lt;td&gt;{player.approach}&lt;/td&gt;
+                      &lt;td&gt;{player.strokesGained}&lt;/td&gt;
+                    &lt;/tr&gt;
+                  ))}
+                &lt;/tbody&gt;
+              &lt;/table&gt;
+            )}
+          &lt;/&gt;
+        )}
+
+        {activeTab === &quot;custom&quot; &amp;&amp; (
+          &lt;div&gt;
+            &lt;p&gt;Create your own advanced metrics using player stats.&lt;/p&gt;
+            &lt;p className=&quot;placeholder&quot;&gt;
+              [Placeholder for custom metric builder UI]
+            &lt;/p&gt;
+          &lt;/div&gt;
+        )}
+
+        {activeTab === &quot;favorites&quot; &amp;&amp; (
+          &lt;div&gt;
+            &lt;p&gt;Save your favorite players and stat sets here.&lt;/p&gt;
+            &lt;p className=&quot;placeholder&quot;&gt;[Placeholder for MongoDB integration]&lt;/p&gt;
+          &lt;/div&gt;
+        )}
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
       </div>
 
-      <!-- POST example -->
+      <!-- index.tsx -->
       <div class="tile span-12">
         <div class="toolbar">
-          <button class="btn" data-copy="post">Copy code</button>
+          <a class="btn" href="./index.tsx" download>Download index.tsx</a>
+          <button class="btn" data-copy="index">Copy code</button>
         </div>
-        <h2>POST /api/records Example</h2>
-        <pre id="code-post"><code>async function createRecord(payload) {
-  const res = await fetch(`${localStorage.getItem("API_BASE_URL")}/api/records`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${localStorage.getItem("API_TOKEN")}`
-    },
-    body: JSON.stringify(payload)
-  });
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({ message: res.statusText }));
-    throw new Error(err.message || "Create failed");
-  }
-  return res.json();
-}</code></pre>
+        <h2>index.tsx</h2>
+        <pre id="code-index"><code>import React from &quot;react&quot;;
+import ReactDOM from &quot;react-dom/client&quot;;
+import App from &quot;./App&quot;;
+
+const rootElement = document.getElementById(&quot;root&quot;)!;
+const root = ReactDOM.createRoot(rootElement);
+
+root.render(
+  &lt;React.StrictMode&gt;
+    &lt;App /&gt;
+  &lt;/React.StrictMode&gt;
+);
+</code></pre>
       </div>
 
-      <!-- .env example -->
+      <!-- styles.css -->
       <div class="tile span-12">
         <div class="toolbar">
-          <button class="btn" data-copy="env">Copy code</button>
+          <a class="btn" href="./styles.css" download>Download styles.css</a>
+          <button class="btn" data-copy="css">Copy code</button>
         </div>
-        <h2>Environment (.env or client storage)</h2>
-        <pre id="code-env"><code># Frontend env (Vite/Next) or localStorage keys
-API_BASE_URL=https://your-api.example.com
-API_TOKEN=your_long_lived_token_or_blank_if_using_cookies
+        <h2>styles.css</h2>
+        <pre id="code-css"><code>body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background-color: #f5f5f5;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: white;
+  min-height: 100vh;
+}
+
+.title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.search-bar {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.search-input {
+  flex: 1;
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+.search-button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.search-button:hover {
+  background-color: #0056b3;
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.tab-button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background-color: #eee;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.tab-button.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.tab-content {
+  padding: 1rem;
+  border: 1px solid #ccc;
+  background-color: #fafafa;
+  border-radius: 6px;
+}
+
+.stats-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.stats-table th,
+.stats-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+.placeholder {
+  font-style: italic;
+  color: #666;
+  margin-top: 0.5rem;
+}
 </code></pre>
       </div>
     </section>
@@ -184,16 +353,16 @@ API_TOKEN=your_long_lived_token_or_blank_if_using_cookies
   </div>
 
   <script>
-    // Copy handlers for multiple code blocks
-    const map = {
-      fetch: document.getElementById('code-fetch'),
-      post: document.getElementById('code-post'),
-      env: document.getElementById('code-env')
+    // Copy to clipboard handlers
+    const blocks = {
+      app: document.getElementById('code-app'),
+      index: document.getElementById('code-index'),
+      css: document.getElementById('code-css'),
     };
     document.querySelectorAll('button[data-copy]').forEach(btn => {
       btn.addEventListener('click', async () => {
         const key = btn.getAttribute('data-copy');
-        const pre = map[key];
+        const pre = blocks[key];
         if (!pre) return;
         const text = pre.innerText;
         try {
