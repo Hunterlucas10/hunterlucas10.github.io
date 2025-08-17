@@ -4,13 +4,65 @@
   <meta charset="UTF-8">
   <title>Artifact 1 — Enhanced</title>
   <link rel="stylesheet" href="../../styles.css"> <!-- optional shared styles -->
+  <style>
+    :root{
+      --bg:#0b1220; --panel:#0e1630; --ink:#eef2ff; --muted:#98a3c7;
+      --blue:#3b82f6; --gold:#fbbf24; --stroke:rgba(255,255,255,.09);
+      --radius:18px; --shadow:0 10px 30px rgba(0,0,0,.35);
+    }
+    /* Page base */
+    html,body{height:100%}
+    body{
+      margin:0; color:var(--ink);
+      font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+      background:
+        radial-gradient(900px 600px at 0% -10%, rgba(59,130,246,.18), transparent),
+        radial-gradient(800px 500px at 110% 10%, rgba(251,191,36,.15), transparent),
+        var(--bg);
+    }
+    /* Center and size each top-level element like a bento stack */
+    body > *{
+      width:min(1000px,92vw);
+      margin-left:auto; margin-right:auto;
+    }
+    /* Typographic rhythm */
+    h1{margin:44px 0 8px; font-size:clamp(24px,3.2vw,36px)}
+    p{margin:0 0 16px; color:var(--muted)}
+    h2{margin:26px 0 10px; font-size:clamp(18px,2.6vw,24px)}
+    /* Image card look */
+    img{
+      display:block;
+      width:100%; /* override width attr for responsiveness */
+      height:auto;
+      border-radius:16px;
+      border:1px solid var(--stroke);
+      box-shadow:var(--shadow);
+    }
+    /* Link buttons (blue→gold gradient) */
+    a{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:8px; padding:10px 14px; border-radius:12px; text-decoration:none;
+      color:var(--ink);
+      background:linear-gradient(135deg, var(--gold), var(--blue));
+      border:none; font-weight:700;
+      box-shadow:0 8px 20px rgba(59,130,246,.25);
+    }
+    a[href*="index.html"]{ /* subtle variant for the back link */
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border:1px solid var(--stroke); font-weight:600;
+      color:var(--ink); box-shadow:var(--shadow);
+    }
+    a:hover{filter:brightness(1.05)}
+    /* Space above the final back link */
+    p:last-child{margin-top:22px}
+  </style>
 </head>
 <body>
   <h1>Artifact 1 — Enhanced Version</h1>
   <p>This page contains screenshots of the artifact after enhancements.</p>
 
   <h2>Screenshot 1</h2>
-  <img src="../../assets/artifact1-before-1.png" alt="Original UI Screenshot 1" width="800">
+  <img src="../../assets/artifactenhanced1_1.png" alt="Original UI Screenshot 1" width="800">
 
   <h2>Live Spreadsheet of User Test Cases</h2>
 <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vQD1II9b6sVQZ6f-uxcmrLETcXDGJGonninjsPxURgABDDJgHsA_oIAaJQaPYx0fNtdG4KhZ8YS_K1s/pubhtml"

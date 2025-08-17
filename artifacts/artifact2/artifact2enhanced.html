@@ -1,23 +1,317 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Artifact 1 — Original</title>
-  <link rel="stylesheet" href="../../styles.css"> <!-- optional shared styles -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Artifact 2 — Enhanced (Q-Learning Tic-Tac-Toe)</title>
+  <meta name="description" content="Algorithms & Data Structures enhancement: Q-learning agent for Tic-Tac-Toe with epsilon-greedy policy and NumPy-backed Q-table." />
+  <style>
+    :root{
+      --bg:#0b1220;--panel:#0e1630;--ink:#eef2ff;--muted:#98a3c7;
+      --blue:#3b82f6;--gold:#fbbf24;--stroke:rgba(255,255,255,.09);
+      --radius:18px;--shadow:0 10px 30px rgba(0,0,0,.35)
+    }
+    *{box-sizing:border-box} html,body{height:100%}
+    body{
+      margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+      color:var(--ink);
+      background:
+        radial-gradient(900px 600px at 0% -10%, rgba(59,130,246,.18), transparent),
+        radial-gradient(800px 500px at 110% 10%, rgba(251,191,36,.15), transparent),
+        var(--bg);
+    }
+    .container{width:min(1100px,92vw);margin:0 auto;padding:28px 0}
+    a{color:#dbeafe;text-decoration:none}
+    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800}
+    .logo{width:32px;height:32px;border-radius:10px;background:conic-gradient(from 160deg, var(--gold), var(--blue))}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;text-decoration:none;
+         color:var(--ink);border:1px solid var(--stroke);
+         background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02))}
+    .btn.primary{background:linear-gradient(135deg,var(--gold),var(--blue));color:#0b1220;font-weight:800;border:none}
+    .btn-row{display:flex;gap:10px;flex-wrap:wrap}
+    .muted{color:var(--muted)}
+    .bento{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+    .span-12{grid-column:span 12}.span-8{grid-column:span 8}.span-6{grid-column:span 6}
+    @media(max-width:900px){.span-8,.span-6{grid-column:span 12}}
+    .tile{background:var(--panel);border:1px solid var(--stroke);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+    h1{margin:6px 0 8px;font-size:clamp(22px,3.2vw,34px)}
+    h2{margin:0 0 8px;font-size:clamp(18px,2.6vw,24px)}
+    pre{margin:0;background:#0a0f1f;border:1px solid var(--stroke);border-radius:14px;padding:14px;overflow:auto}
+    code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;font-size:14px;line-height:1.5}
+    figure{margin:0} figcaption{margin-top:6px;color:var(--muted);font-size:14px}
+    .pill{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;font-size:12px;
+          border:1px solid rgba(59,130,246,.5);background:rgba(59,130,246,.12);color:#dbeafe}
+    .toolbar{display:flex;gap:8px;align-items:center;justify-content:flex-end;margin-bottom:8px}
+  </style>
 </head>
 <body>
-  <h1>Artifact 1 — Original Version</h1>
-  <p>This page contains of the artifact before enhancements.</p>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <span>CS-499 ePortfolio</span>
+      </div>
+      <div class="btn-row">
+        <a class="btn" href="../../index.html">← Back to ePortfolio</a>
+        <a class="btn" href="./artifact2original.html">Original</a>
+        <a class="btn primary" href="./narrative.html">Narrative</a>
+      </div>
+    </header>
 
-  <h2>Screenshot 1</h2>
-  <img src="../../assets/artifact1-before-1.png" alt="Original UI Screenshot 1" width="800">
+    <span class="pill">Enhancement Two • Algorithms & Data Structures</span>
+    <h1>Q-Learning Tic-Tac-Toe — Enhanced Version</h1>
+    <p class="muted">
+      This enhancement implements a tabular Q-learning agent with an epsilon-greedy policy, blending exploration and exploitation.
+      A NumPy-backed Q-table stores action-values per board state; training iterates through self-play episodes to converge on optimal play.
+    </p>
 
-  <h2>Screenshot 2</h2>
-  <img src="../../assets/artifact1-before-2.png" alt="Original UI Screenshot 2" width="800">
+    <section class="bento" style="margin-top:16px;">
+      <div class="tile span-6">
+        <h2>Overview of Enhancements</h2>
+        <ul>
+          <li>Implemented <strong>Q-learning</strong> with learning rate (<code>alpha</code>), discount (<code>gamma</code>), and epsilon-greedy exploration.</li>
+          <li>Designed a compact <strong>state representation</strong> (9-char board string) and per-action Q-values.</li>
+          <li>Added <strong>training loop</strong> with self-play and a basic opponent to propagate rewards.</li>
+          <li>Produced <strong>simulation</strong> output to verify learned behavior and draw/win detection.</li>
+        </ul>
+      </div>
 
-  <h2>Download Code</h2>
-  <a href="artifact1-original.zip" download>Download Original Source Code</a>
+      <div class="tile span-6">
+        <h2>How It Demonstrates A&DS</h2>
+        <ul>
+          <li>Uses <em>policy selection</em>, <em>value updates</em>, and <em>reward propagation</em> grounded in algorithmic principles.</li>
+          <li>Employs <em>hash map</em> semantics (dict) for sparse Q-table storage and NumPy vectors for action arrays.</li>
+          <li>Shows <em>trade-offs</em> (exploration vs. exploitation, learning rate vs. stability, state space vs. memory).</li>
+        </ul>
+      </div>
 
-  <p><a href="../../index.html">← Back to ePortfolio</a></p>
+      <!-- Code block -->
+      <div class="tile span-12">
+        <div class="toolbar">
+          <button class="btn" id="copyBtn">Copy code</button>
+          <a class="btn" href="./artifact2_qlearning_tictactoe.py" download>Download .py</a>
+        </div>
+        <h2>Python Source</h2>
+        <pre id="code"><code>import numpy as np
+import random
+
+class TicTacToe:
+    def __init__(self):
+        self.reset()
+
+    def reset(self):
+        self.board = [' ' for _ in range(9)]
+        return self.get_state()
+
+    def get_state(self):
+        return ''.join(self.board)
+
+    def available_actions(self):
+        return [i for i in range(9) if self.board[i] == ' ']
+
+    def make_move(self, pos, player):
+        if self.board[pos] == ' ':
+            self.board[pos] = player
+            return True
+        return False
+
+    def is_winner(self, player):
+        wins = [(0,1,2),(3,4,5),(6,7,8),
+                (0,3,6),(1,4,7),(2,5,8),
+                (0,4,8),(2,4,6)]
+        return any(self.board[i]==self.board[j]==self.board[k]==player for i,j,k in wins)
+
+    def is_draw(self):
+        return ' ' not in self.board and not self.is_winner('X') and not self.is_winner('O')
+
+    def print_board(self):
+        b = self.board
+        print(f&quot;\n{b[0]} | {b[1]} | {b[2]}\n---------\n{b[3]} | {b[4]} | {b[5]}\n---------\n{b[6]} | {b[7]} | {b[8]}\n&quot;)
+
+class QLearningAgent:
+    def __init__(self, player, alpha=0.1, gamma=0.9, epsilon=0.1):
+        self.q_table = {}
+        self.player = player
+        self.alpha = alpha
+        self.gamma = gamma
+        self.epsilon = epsilon
+
+    def get_qs(self, state):
+        return self.q_table.get(state, np.zeros(9))
+
+    def choose_action(self, state, available):
+        if random.random() &lt; self.epsilon:
+            return random.choice(available)
+        qs = self.get_qs(state)
+        qs_filtered = [(i, qs[i]) for i in available]
+        max_val = max(qs_filtered, key=lambda x: x[1])[1]
+        return random.choice([i for i, val in qs_filtered if val == max_val])
+
+    def update(self, s, a, r, s2, available):
+        q = self.get_qs(s)
+        max_future_q = max(self.get_qs(s2)[i] for i in available) if available else 0
+        q[a] = q[a] + self.alpha * (r + self.gamma * max_future_q - q[a])
+        self.q_table[s] = q
+
+
+def train(agent, episodes=10000):
+    game = TicTacToe()
+    opponent = QLearningAgent('O')  # fake opponent
+
+    for _ in range(episodes):
+        game.reset()
+        state = game.get_state()
+        current_player = agent
+
+        while True:
+            available = game.available_actions()
+            action = current_player.choose_action(state, available)
+            game.make_move(action, current_player.player)
+
+            new_state = game.get_state()
+
+            if game.is_winner(current_player.player):
+                reward = 1 if current_player == agent else -1
+                agent.update(state, action, reward, new_state, [])
+                break
+            elif game.is_draw():
+                agent.update(state, action, 0.5, new_state, [])
+                break
+            else:
+                next_player = opponent if current_player == agent else agent
+                current_player.update(state, action, 0, new_state, game.available_actions())
+                state = new_state
+                current_player = next_player
+
+    print(&quot;Training complete.&quot;)
+
+
+agent = QLearningAgent('X')
+train(agent, episodes=50000)
+
+
+def simulate_game(agent):
+    game = TicTacToe()
+    game.reset()
+    current_player = 'X'
+
+    while True:
+        game.print_board()
+        state = game.get_state()
+        available = game.available_actions()
+
+        if current_player == agent.player:
+            action = agent.choose_action(state, available)
+        else:
+            action = random.choice(available)
+
+        game.make_move(action, current_player)
+
+        if game.is_winner(current_player):
+            game.print_board()
+            print(f&quot;{current_player} wins!&quot;)
+            break
+        elif game.is_draw():
+            game.print_board()
+            print(&quot;It's a draw!&quot;)
+            break
+
+        current_player = 'O' if current_player == 'X' else 'X'
+
+simulate_game(agent)</code></pre>
+      </div>
+
+      <!-- Sample output -->
+      <div class="tile span-12">
+        <h2>Sample Output</h2>
+        <pre><code>  |   |  
+---------
+  |   |  
+---------
+  |   |  
+
+  |   | X
+---------
+  |   |  
+---------
+  |   |  
+
+  |   | X
+---------
+  |   |  
+---------
+O |   |  
+
+  |   | X
+---------
+  | X |  
+---------
+O |   |  
+
+  |   | X
+---------
+  | X |  
+---------
+O | O |  
+
+  |   | X
+---------
+X | X |  
+---------
+O | O |  
+
+  |   | X
+---------
+X | X | O
+---------
+O | O |  
+
+  |   | X
+---------
+X | X | O
+---------
+O | O | X
+
+O |   | X
+---------
+X | X | O
+---------
+O | O | X
+
+O | X | X
+---------
+X | X | O
+---------
+O | O | X
+
+It's a draw!</code></pre>
+      </div>
+    </section>
+
+    <div style="margin-top:16px" class="btn-row">
+      <a class="btn" href="./artifact2original.html">View Original</a>
+      <a class="btn primary" href="./narrative.html">Read Narrative</a>
+      <a class="btn" href="../../index.html">Back to ePortfolio</a>
+    </div>
+  </div>
+
+  <script>
+    // Copy code to clipboard
+    const btn = document.getElementById('copyBtn');
+    const codeEl = document.getElementById('code');
+    if (btn && codeEl) {
+      btn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(codeEl.innerText);
+          btn.textContent = 'Copied!';
+          setTimeout(() => (btn.textContent = 'Copy code'), 1400);
+        } catch (e) {
+          btn.textContent = 'Copy failed';
+          setTimeout(() => (btn.textContent = 'Copy code'), 1400);
+        }
+      });
+    }
+  </script>
 </body>
 </html>
