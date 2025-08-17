@@ -2,11 +2,54 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Artifact 1 — Original</title>
+  <title>Artifact 2 — Original</title>
   <link rel="stylesheet" href="../../styles.css"> <!-- optional shared styles -->
+  <style>
+    :root{
+      --bg:#0b1220; --panel:#0e1630; --ink:#eef2ff; --muted:#98a3c7;
+      --blue:#3b82f6; --gold:#fbbf24; --stroke:rgba(255,255,255,.09);
+      --radius:18px; --shadow:0 10px 30px rgba(0,0,0,.35);
+    }
+    html,body{height:100%}
+    body{
+      margin:0; color:var(--ink);
+      font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+      background:
+        radial-gradient(900px 600px at 0% -10%, rgba(59,130,246,.18), transparent),
+        radial-gradient(800px 500px at 110% 10%, rgba(251,191,36,.15), transparent),
+        var(--bg);
+    }
+    /* Constrain and center existing top-level elements without adding wrappers */
+    body > *{
+      width:min(1000px,92vw);
+      margin-left:auto; margin-right:auto;
+    }
+    h1{margin:44px 0 10px; font-size:clamp(24px,3.2vw,36px)}
+    /* Intro paragraph (muted) */
+    body > p:first-of-type{margin:0 0 18px; color:var(--muted)}
+    /* Main long paragraph as a tile and preserve newlines */
+    body > p:nth-of-type(2){
+      margin:0 0 18px; padding:18px;
+      background:var(--panel); border:1px solid var(--stroke);
+      border-radius:var(--radius); box-shadow:var(--shadow);
+      white-space:pre-wrap; line-height:1.55; color:var(--ink);
+    }
+    /* Back link paragraph spacing */
+    body > p:last-child{margin:22px 0 40px}
+    /* Back link styled as a subtle button */
+    a[href*="index.html"]{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 14px; border-radius:12px; text-decoration:none;
+      color:var(--ink);
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border:1px solid var(--stroke);
+      box-shadow:var(--shadow); font-weight:600;
+    }
+    a[href*="index.html"]:hover{filter:brightness(1.05)}
+  </style>
 </head>
 <body>
-  <h1>Artifact 1 — Original Version</h1>
+  <h1>Artifact 2 — Original Version</h1>
   <p>This page contains the writing of the artifact inspiration before enhancements.</p>
 
   <p>To solve the treasure maze game, I used a deep Q learning algorithm to train my intelligent agent, a pirate, to find a treasure hidden in the maze. This project helped me understand how machines approach problems differently from humans. A human would look at the maze, figure out possible paths, and use memory and reasoning to avoid dead ends and move closer to the goal. A person might also learn from past tries and avoid making the same mistakes. On the other hand, a machine like my pirate agent does not see or think like a person. Instead, it uses numbers, calculations, and trial and error to learn the best moves over time. If a person was placed in this maze, they would probably try to move in a direction that looks open and continue adjusting their steps based on what they observe. Humans might try to backtrack if they run into walls or dead ends. They might also look for patterns or use logic to guess which directions are more likely to lead to the treasure. A human uses vision, memory, and problem solving strategies that come naturally with experience. My intelligent agent, however, learns by interacting with the maze many times. It starts by exploring different directions randomly. After each move, it receives a reward depending on whether it moved closer to the treasure, hit a wall, revisited a cell, or found the treasure. The agent remembers these experiences and uses them to update a neural network model that predicts which moves will likely result in higher rewards. (Botvinick et al., 2019) Over time, the model gets better at picking actions that help the pirate find the treasure faster. This is reinforcement learning, where the agent learns what actions to take in order to maximize the reward. The main similarity between a human and the intelligent agent is that both learn from experience. They both adjust their strategy over time to get better at solving the maze. But the difference is in how they learn. Humans use logic and thinking, while the agent uses math, data, and lots of practice.
