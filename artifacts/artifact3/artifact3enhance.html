@@ -1,23 +1,211 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Artifact 1 — Original</title>
-  <link rel="stylesheet" href="../../styles.css"> <!-- optional shared styles -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Artifact 3 — Enhanced (Live DB UI via API)</title>
+  <meta name="description" content="Databases enhancement: UI integrated with a live database over REST API (auth, pagination, validation)." />
+  <style>
+    :root{
+      --bg:#0b1220;--panel:#0e1630;--ink:#eef2ff;--muted:#98a3c7;
+      --blue:#3b82f6;--gold:#fbbf24;--stroke:rgba(255,255,255,.09);
+      --radius:18px;--shadow:0 10px 30px rgba(0,0,0,.35)
+    }
+    *{box-sizing:border-box}html,body{height:100%}
+    body{
+      margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+      color:var(--ink);
+      background:
+        radial-gradient(900px 600px at 0% -10%, rgba(59,130,246,.18), transparent),
+        radial-gradient(800px 500px at 110% 10%, rgba(251,191,36,.15), transparent),
+        var(--bg);
+    }
+    .container{width:min(1100px,92vw);margin:0 auto;padding:28px 0}
+    a{color:#dbeafe;text-decoration:none}
+    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800}
+    .logo{width:32px;height:32px;border-radius:10px;background:conic-gradient(from 160deg, var(--gold), var(--blue))}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;text-decoration:none;
+         color:var(--ink);border:1px solid var(--stroke);
+         background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02))}
+    .btn.primary{background:linear-gradient(135deg,var(--gold),var(--blue));color:#0b1220;font-weight:800;border:none}
+    .btn-row{display:flex;gap:10px;flex-wrap:wrap}
+    .muted{color:var(--muted)}
+    .bento{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+    .span-12{grid-column:span 12}.span-8{grid-column:span 8}.span-6{grid-column:span 6}
+    @media(max-width:900px){.span-8,.span-6{grid-column:span 12}}
+    .tile{background:var(--panel);border:1px solid var(--stroke);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+    h1{margin:6px 0 8px;font-size:clamp(22px,3.2vw,34px)}
+    h2{margin:0 0 8px;font-size:clamp(18px,2.6vw,24px)}
+    figure{margin:0}figcaption{margin-top:6px;color:var(--muted);font-size:14px}
+    img{width:100%;height:auto;border-radius:14px;border:1px solid var(--stroke);box-shadow:var(--shadow)}
+    pre{margin:0;background:#0a0f1f;border:1px solid var(--stroke);border-radius:14px;padding:14px;overflow:auto}
+    code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;font-size:14px;line-height:1.5}
+    .pill{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;font-size:12px;
+          border:1px solid rgba(59,130,246,.5);background:rgba(59,130,246,.12);color:#dbeafe}
+    .toolbar{display:flex;gap:8px;align-items:center;justify-content:flex-end;margin-bottom:8px}
+  </style>
 </head>
 <body>
-  <h1>Artifact 1 — Original Version</h1>
-  <p>This page contains screenshots of the artifact before enhancements.</p>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <span>CS-499 ePortfolio</span>
+      </div>
+      <div class="btn-row">
+        <a class="btn" href="../../index.html">← Back to ePortfolio</a>
+        <a class="btn" href="./artifact3original.html">Original</a>
+        <a class="btn primary" href="./narrative.html">Narrative</a>
+      </div>
+    </header>
 
-  <h2>Screenshot 1</h2>
-  <img src="../../assets/artifact1-before-1.png" alt="Original UI Screenshot 1" width="800">
+    <span class="pill">Enhancement Three • Databases & API</span>
+    <h1>Live Database UI via REST API — Enhanced Version</h1>
+    <p class="muted">
+      This enhancement connects a front-end UI to a live database through a REST API, featuring authenticated requests,
+      robust error handling, server-side validation, and client-side pagination & filtering. The UI provides real-time
+      data views and safe write operations through well-defined endpoints.
+    </p>
 
-  <h2>Screenshot 2</h2>
-  <img src="../../assets/artifact1-before-2.png" alt="Original UI Screenshot 2" width="800">
+    <section class="bento" style="margin-top:16px;">
+      <div class="tile span-6">
+        <h2>Overview of Enhancements</h2>
+        <ul>
+          <li>Integrated UI with <strong>live REST API</strong> (GET, POST, PUT, DELETE) backed by a production database.</li>
+          <li>Implemented <strong>auth headers</strong>, request retry on 401, and centralized error handling.</li>
+          <li>Added <strong>pagination</strong>, <strong>search filters</strong>, and debounced queries for responsive UX.</li>
+          <li>Introduced <strong>form validation</strong> on client and server; surfaced helpful error messages.</li>
+        </ul>
+      </div>
 
-  <h2>Download Code</h2>
-  <a href="artifact1-original.zip" download>Download Original Source Code</a>
+      <div class="tile span-6">
+        <h2>Data & API Design</h2>
+        <ul>
+          <li>Entities: <em>Records</em>, <em>Users</em> (RBAC optional), <em>Audit</em> logs.</li>
+          <li>Key endpoints: <code>GET /api/records</code>, <code>POST /api/records</code>, <code>PUT /api/records/:id</code>, <code>DELETE /api/records/:id</code></li>
+          <li>Status codes: <code>200</code>/<code>201</code>, <code>400</code> validation, <code>401</code>/<code>403</code> auth, <code>404</code>, <code>500</code>.</li>
+        </ul>
+      </div>
 
-  <p><a href="../../index.html">← Back to ePortfolio</a></p>
+      <!-- Screenshots -->
+      <div class="tile span-12">
+        <h2>Enhanced UI Screens</h2>
+        <figure>
+          <img src="../../assets/artifact3-after-1.png" alt="Enhanced UI screenshot 1" />
+          <figcaption>Data grid with pagination, filtering, and action buttons.</figcaption>
+        </figure>
+        <div style="height:12px"></div>
+        <figure>
+          <img src="../../assets/artifact3-after-2.png" alt="Enhanced UI screenshot 2" />
+          <figcaption>Create / Edit modal with validation and API feedback.</figcaption>
+        </figure>
+      </div>
+
+      <!-- API base / docs links (replace # with your URLs) -->
+      <div class="tile span-12">
+        <h2>API Access</h2>
+        <p class="muted">Replace the example URLs with your live API and docs links.</p>
+        <div class="btn-row">
+          <a class="btn primary" href="#" target="_blank" rel="noopener">Open API Base URL</a>
+          <a class="btn" href="#" target="_blank" rel="noopener">OpenAPI / Swagger Docs</a>
+          <a class="btn" href="./artifact3_ui_source.zip" download>Download UI Source (.zip)</a>
+        </div>
+      </div>
+
+      <!-- UI fetch snippet -->
+      <div class="tile span-12">
+        <div class="toolbar">
+          <button class="btn" data-copy="fetch">Copy code</button>
+        </div>
+        <h2>UI → API Fetch Example</h2>
+        <pre id="code-fetch"><code>async function fetchRecords({ page = 1, q = "" } = {}) {
+  const res = await fetch(`${localStorage.getItem("API_BASE_URL")}/api/records?page=${page}&q=${encodeURIComponent(q)}`, {
+    headers: {
+      "Accept": "application/json",
+      "Authorization": `Bearer ${localStorage.getItem("API_TOKEN")}`
+    },
+    credentials: "include",
+  });
+
+  if (res.status === 401) {
+    // Optionally refresh token or redirect to login
+    throw new Error("Unauthorized. Please sign in again.");
+  }
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({ message: res.statusText }));
+    throw new Error(err.message || "Request failed");
+  }
+  const data = await res.json();
+  return data; // { items: [...], page, total }
+}</code></pre>
+      </div>
+
+      <!-- POST example -->
+      <div class="tile span-12">
+        <div class="toolbar">
+          <button class="btn" data-copy="post">Copy code</button>
+        </div>
+        <h2>POST /api/records Example</h2>
+        <pre id="code-post"><code>async function createRecord(payload) {
+  const res = await fetch(`${localStorage.getItem("API_BASE_URL")}/api/records`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${localStorage.getItem("API_TOKEN")}`
+    },
+    body: JSON.stringify(payload)
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({ message: res.statusText }));
+    throw new Error(err.message || "Create failed");
+  }
+  return res.json();
+}</code></pre>
+      </div>
+
+      <!-- .env example -->
+      <div class="tile span-12">
+        <div class="toolbar">
+          <button class="btn" data-copy="env">Copy code</button>
+        </div>
+        <h2>Environment (.env or client storage)</h2>
+        <pre id="code-env"><code># Frontend env (Vite/Next) or localStorage keys
+API_BASE_URL=https://your-api.example.com
+API_TOKEN=your_long_lived_token_or_blank_if_using_cookies
+</code></pre>
+      </div>
+    </section>
+
+    <div style="margin-top:16px" class="btn-row">
+      <a class="btn" href="./artifact3original.html">View Original</a>
+      <a class="btn primary" href="./narrative.html">Read Narrative</a>
+      <a class="btn" href="../../index.html">Back to ePortfolio</a>
+    </div>
+  </div>
+
+  <script>
+    // Copy handlers for multiple code blocks
+    const map = {
+      fetch: document.getElementById('code-fetch'),
+      post: document.getElementById('code-post'),
+      env: document.getElementById('code-env')
+    };
+    document.querySelectorAll('button[data-copy]').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const key = btn.getAttribute('data-copy');
+        const pre = map[key];
+        if (!pre) return;
+        const text = pre.innerText;
+        try {
+          await navigator.clipboard.writeText(text);
+          const old = btn.textContent; btn.textContent = 'Copied!';
+          setTimeout(() => btn.textContent = old, 1200);
+        } catch (e) {
+          const old = btn.textContent; btn.textContent = 'Copy failed';
+          setTimeout(() => btn.textContent = old, 1200);
+        }
+      });
+    });
+  </script>
 </body>
 </html>
